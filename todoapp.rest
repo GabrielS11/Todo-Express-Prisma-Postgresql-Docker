@@ -1,0 +1,55 @@
+### GET /
+GET http://localhost:5000
+
+### 
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "username": "olabil",
+    "password": "bilola" 
+}
+
+###
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "username": "olabil",
+    "password": "bilola" 
+}
+
+
+### FETCh all todos GET
+GET http://localhost:5000/todos
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUxODE1NDAwLCJleHAiOjE3NTE5MDE4MDB9.Q5hNqQyYUeRBQF63DMW3kfxXRqvsOVYnZb2UE-eUPiM
+
+
+### Creates a new todo POST
+POST http://localhost:5000/todos
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUxODE1NDAwLCJleHAiOjE3NTE5MDE4MDB9.Q5hNqQyYUeRBQF63DMW3kfxXRqvsOVYnZb2UE-eUPiM
+Content-Type: application/json
+
+{
+    "task": "Finish coding the projects"
+}
+
+
+### Update a todo PUT TODOS/:ID
+PUT http://localhost:5000/todos/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUxODE1NDAwLCJleHAiOjE3NTE5MDE4MDB9.Q5hNqQyYUeRBQF63DMW3kfxXRqvsOVYnZb2UE-eUPiM
+Content-Type: application/json
+
+{
+    "completed": 1
+}
+
+
+
+
+### Delete a todo DELETE TODOS/:ID
+DELETE http://localhost:5000/todos/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzUxODE1NDAwLCJleHAiOjE3NTE5MDE4MDB9.Q5hNqQyYUeRBQF63DMW3kfxXRqvsOVYnZb2UE-eUPiM
+Content-Type: application/json
+
+
