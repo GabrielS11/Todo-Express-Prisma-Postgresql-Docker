@@ -1,101 +1,55 @@
-Todo App
-A simple task management (ToDo) application built with Express.js, Prisma, PostgreSQL, and Docker.
+# Todo App with Express.js, Prisma, Docker, and PostgreSQL
 
-Technologies Used
-Express.js: Web framework for Node.js to build the REST API.
+A simple Todo application built using Express.js for the backend, Prisma as the ORM, PostgreSQL as the database, and Docker for containerization.
 
-Prisma: Modern ORM to interact with the PostgreSQL database.
+---
 
-PostgreSQL: Relational database for storing tasks.
+## Features
 
-Docker: For containerizing the app and database, making development environment easier.
+- RESTful API with Express.js  
+- Database access with Prisma ORM  
+- PostgreSQL database inside Docker container  
+- Easy setup and deployment with Docker Compose
 
-Features
-Create, read, update, and delete tasks (CRUD).
+---
 
-Data persistence with PostgreSQL.
+## Requirements
 
-Isolated development environment with Docker.
+- Docker & Docker Compose installed  
+- Node.js (for local development if not using Docker)
 
-Prerequisites
-Docker installed
+---
 
-Node.js installed (if running locally without Docker)
+## Getting Started
 
-How to Run
-Using Docker
-Clone this repository:
+### 1. Clone the repository
 
-bash
-Copiar
-Editar
-git clone https://github.com/your-username/your-repository.git
-cd your-repository
-Generate the Prisma client (if you modify the schema):
+```bash
+git clone https://github.com/GabrielS11/Todo-Express-Prisma-Postgresql-Docker.git
+cd Todo-Express-Prisma-Postgresql-Docker
+```
 
-bash
-Copiar
-Editar
+##2. Generate Prisma Client
+```bash
 npx prisma generate
-Start the Docker containers (app + database):
+```
+##3. Start Docker containers
+```bash
+docker compose up
+```
+The app will be available at http://localhost:5000.
 
-bash
-Copiar
-Editar
-docker compose up --build
-The app will be running at http://localhost:5000
+---
 
-Running Locally (without Docker)
-Install dependencies:
+## Notes
+-The PostgreSQL database is created and managed inside the Docker container automatically.
 
-bash
-Copiar
-Editar
-npm install
-Configure the .env file with your PostgreSQL connection string:
+-Prisma migrations and client generation should be done on your host machine before running the Docker containers.
 
-ini
-Copiar
-Editar
-DATABASE_URL=postgresql://user:password@localhost:5432/database_name
-JWT_SECRET=your_secret_key
-PORT=5000
-Generate the Prisma client:
+-If you change your Prisma schema, remember to run npx prisma generate again.
 
-bash
-Copiar
-Editar
-npx prisma generate
-Start the app:
-
-bash
-Copiar
-Editar
-npm run dev
-Access the API at http://localhost:5000
-
-Project Structure
-/prisma — Prisma schema and migration files.
-
-/src — Express app source code.
-
-docker-compose.yml — Docker configuration file.
-
-Useful Prisma Commands
-Create migrations and update the database:
-
-bash
-Copiar
-Editar
-npx prisma migrate dev --name init
-Open Prisma Studio (database GUI):
-
-bash
-Copiar
-Editar
-npx prisma studio
-Contributing
-Feel free to open issues and pull requests!
-
-License
-This project is licensed under the MIT License.
+---
+## Stopping the app
+```bash
+docker compose down
+```
