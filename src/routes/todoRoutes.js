@@ -1,44 +1,58 @@
 import express from "express";
-import db from "../db.js";
+import prisma from "../prismaClient.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   //Selecting all todos where user_id is equal
-  const getTodos = db.prepare(`SELECT * FROM todo WHERE user_id = ?`);
-  const todos = getTodos.all(req.user_id);
+  const todos = await prisma.todo.findMany({
+    where: {
+      user_id: req.user_id,
+    },
+  });
+
   res.json(todos);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { task } = req.body;
-  const insertTodo = db.prepare(
-    `INSERT INTO todo (user_id, task) VALUES (?, ?)`
-  );
-  const result = insertTodo.run(req.user_id, task);
 
-  res.json({ id: result.lastInsertRowid, task, completed: 0 });
+  const todo = await prisma.todo.create({
+    data: {
+      task,
+      user_id: req.user_id,
+    },
+  });
+
+  res.json(todo);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   const { completed } = req.body;
   const { id } = req.params;
 
-  const updatedTodo = db.prepare(`UPDATE todo SET completed = ? WHERE id = ?`);
+  const updatedTodo = await prisma.todo.update({
+    where: {
+      id: parseInt(id),
+      user_id: req.user_id,
+    },
+    data: {
+      completed: !!completed,
+    },
+  });
 
-  updatedTodo.run(completed, id);
-
-  res.json({ message: "Todo completed" });
+  res.json(updatedTodo);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const user_id = req.user_id;
-  const deleteTodo = db.prepare(
-    `DELETE FROM todo WHERE id = ? AND user_id = ?`
-  );
-
-  deleteTodo.run(id, user_id);
+  await prisma.todo.delete({
+    where: {
+      id: parseInt(id),
+      user_id: user_id,
+    },
+  });
 
   res.send({ message: "Todo deleted" });
 });
